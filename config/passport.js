@@ -6,6 +6,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+var google = require('./passport/google');
 var local = require('./passport/local');
 
 /**
@@ -26,4 +27,5 @@ module.exports = function (passport, config) {
 
   // use these strategies
   passport.use(local);
+  passport.use(google);
 };

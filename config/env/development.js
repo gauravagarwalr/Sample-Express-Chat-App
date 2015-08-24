@@ -4,20 +4,10 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost/your_project_development',
-  facebook: {
-    clientID: 'APP_ID',
-    clientSecret: 'SECRET',
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
-    scope: [
-      'email',
-      'user_about_me',
-      'user_friends'
-    ]
-  },
+  db: 'mongodb://localhost/async_chat_dev',
   google: {
-    clientID: 'APP_ID',
-    clientSecret: 'SECRET',
+    clientID: '1098611283556-fs630gar75csdhvudased81lvb1pq9pp.apps.googleusercontent.com',
+    clientSecret: 'vWPI_waMydKjak6muneWyOWQ',
     callbackURL: 'http://localhost:3000/auth/google/callback',
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
