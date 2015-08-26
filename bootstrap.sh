@@ -12,7 +12,7 @@ fi
 
 mkdir -p log pids
 
-node server.js > log/server.log 2>&1 &
+NODE_PATH=./config:./app/controllers node server.js > log/server.log 2>&1 &
 echo $! > pids/server.pid
 
 node react-server.js > log/react-js.log 2>&1 &
