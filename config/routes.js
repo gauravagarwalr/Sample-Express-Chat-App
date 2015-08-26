@@ -5,12 +5,39 @@
 
 var mongoose = require('mongoose');
 var home = require('home');
+var users = require('users');
 
 /**
  * Expose
  */
 
 module.exports = function (app, passport) {
+  // user routes
+  app.get('/login', users.login);
+  app.get('/signup', users.signup);
+  app.get('/logout', users.logout);
+  app.post('/users', users.create);
+  app.post('/users/session',
+    passport.authenticate('local', {
+      failureRedirect: '/login',
+      failureFlash: 'Invalid email or password.'
+    }), users.session);
+  app.get('/users/:userId', users.show);
+
+  app.get('/auth/google',
+    passport.authenticate('google', {
+      failureRedirect: '/login',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+      ]
+    }), users.signin);
+  app.get('/auth/google/callback',
+    passport.authenticate('google', {
+      failureRedirect: '/login'
+    }), users.authCallback);
+
+  // Landing Page
 
   app.get('/', home.index);
 
