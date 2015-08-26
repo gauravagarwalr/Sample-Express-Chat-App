@@ -1,10 +1,10 @@
 {
-  "name": "node-express-mongoose",
-  "description": "A boilerplate application for express mongoose",
+  "name": "Async Chat App",
+  "description": "This is a sample app for the purposes of react and node demo.",
   "version": "1.0.0",
   "author": {
-    "name": "Madhusudhan Srinivasa",
-    "email": "me@madhums.me"
+    "name": "Gaurav Agarwal",
+    "email": "gauravagarwalr@gmail.com"
   },
   "engines": {
     "node": "0.12.x"
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/madhums/node-express-mongoose.git"
+    "url": "git@bitbucket.org:gauravagarwalr/express-mongo-chat-app.git"
   },
   "keywords": [
     "mvc",
