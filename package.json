@@ -1,5 +1,5 @@
 {
-  "name": "Async Chat App",
+  "name": "async-chat-app",
   "description": "This is a sample app for the purposes of react and node demo.",
   "version": "1.0.0",
   "author": {
@@ -23,6 +23,7 @@
     "cookie-session": "1.2.0",
     "csurf": "1.8.3",
     "express": "4.13.1",
+    "express-less": "0.0.8",
     "express-session": "1.11.3",
     "forever": "0.14.2",
     "method-override": "2.3.3",

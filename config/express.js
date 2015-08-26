@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var csrf = require('csurf');
 var swig = require('swig');
+var expressLess = require('express-less');
 
 var mongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
@@ -36,6 +37,7 @@ module.exports = function (app, passport) {
 
   // Static files middleware
   app.use(express.static(config.root + '/public'));
+  app.use('/css', expressLess(config.root + '/public/css'));
 
   // Use winston on production
   var log;

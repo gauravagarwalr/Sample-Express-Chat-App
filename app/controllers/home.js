@@ -8,7 +8,7 @@ exports.index = function (req, res) {
 
   if(user) {
     res.render('home/index', {
-      title: 'Node Express Mongoose Boilerplate'
+      user: user
     });
   } else {
     res.redirect('/login');
