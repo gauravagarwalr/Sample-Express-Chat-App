@@ -82,6 +82,15 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
   return hashed_password.length && this._password.length;
 }, 'Password cannot be blank');
 
+UserSchema.path('photoUrl').validate(function (photoUrl) {
+  if (this.skipValidation()) return true;
+  return photoUrl.length;
+}, 'Photo Url cannot be blank');
+
+UserSchema.path('phone').validate(function (phone) {
+  if (this.skipValidation()) return true;
+  return phone.length;
+}, 'Phone cannot be blank');
 
 /**
  * Pre-save hook
