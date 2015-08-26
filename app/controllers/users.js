@@ -48,33 +48,19 @@ exports.create = function (req, res) {
 };
 
 /**
- *  Show profile
- */
-
-exports.show = function (req, res) {
-  var user = req.profile;
-  res.render('users/show', {
-    title: user.name,
-    user: user
-  });
-};
-
-exports.signin = function (req, res) {};
-
-/**
- * Auth callback
- */
-
-exports.authCallback = login;
-
-/**
  * Show login form
  */
 
 exports.login = function (req, res) {
-  res.render('users/login', {
-    title: 'Login'
-  });
+  var user = req.user;
+
+  if(user) {
+    res.redirect("/");
+  } else {
+    res.render('users/login', {
+      title: 'Login'
+    });
+  }
 };
 
 /**
@@ -82,10 +68,16 @@ exports.login = function (req, res) {
  */
 
 exports.signup = function (req, res) {
-  res.render('users/signup', {
-    title: 'Sign up',
-    user: new User()
-  });
+  var user = req.user;
+
+  if(user) {
+    res.redirect("/");
+  } else {
+    res.render('users/signup', {
+      title: 'Sign up',
+      user: new User()
+    });
+  }
 };
 
 /**

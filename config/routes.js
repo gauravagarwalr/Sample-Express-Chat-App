@@ -24,18 +24,7 @@ module.exports = function (app, passport) {
     }), users.session);
   app.get('/users/:userId', users.show);
 
-  app.get('/auth/google',
-    passport.authenticate('google', {
-      failureRedirect: '/login',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-      ]
-    }), users.signin);
-  app.get('/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/login'
-    }), users.authCallback);
+  app.param('userId', users.load);
 
   // Landing Page
 
