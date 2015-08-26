@@ -170,10 +170,7 @@ UserSchema.statics = {
    */
 
   load: function (options, cb) {
-    options.select = options.select || 'name username';
-    this.findOne(options.criteria)
-      .select(options.select)
-      .exec(cb);
+    this.findOne(options.criteria).exec(cb);
   }
 }
 
