@@ -1,15 +1,14 @@
 //initialize
 // JS imports
+import moment from "moment";
 import lodash from "lodash";
 const React = require("react");
 import Router from "react-router";
 import Immutable from "immutable";
 
-import routes from "./components/routes";
-
 import appState from "./stores/app_state";
 
-import moment from "moment";
+import routes from "./components/routes";
 
 moment.locale("en", {
   calendar: {

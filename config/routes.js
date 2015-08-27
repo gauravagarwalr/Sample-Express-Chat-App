@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 
-var mongoose = require('mongoose');
 var home = require('home');
 var users = require('users');
 
@@ -21,6 +20,8 @@ module.exports = function (app, passport) {
       failureRedirect: '/login',
       failureFlash: 'Invalid email or password.'
     }), users.session);
+
+  app.get('/current_user', users.currentUser);
 
   app.param('userId', users.load);
 
@@ -45,7 +46,7 @@ module.exports = function (app, passport) {
   });
 
   // assume 404 since no middleware responded
-  app.use(function (req, res, next) {
+  app.use(function (req, res) {
     res.status(404).render('404', {
       url: req.originalUrl,
       error: 'Not found'

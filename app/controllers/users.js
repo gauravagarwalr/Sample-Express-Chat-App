@@ -93,6 +93,14 @@ exports.logout = function (req, res) {
  * Session
  */
 
+exports.currentUser = function (req, res) {
+  res.format({
+    'application/json': function () {
+      res.send({user: req.user});
+    }
+  });
+};
+
 exports.session = login;
 
 /**

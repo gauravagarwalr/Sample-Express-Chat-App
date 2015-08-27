@@ -3,7 +3,7 @@ import React from "react";
 import component from "../common/component";
 import shouldComponentUpdate from "../common/shouldupdate";
 
-// import User from "../stores/users_store";
+import User from "../../stores/users_store";
 
 class ProfileComponent extends React.Component {
   constructor() {
@@ -18,14 +18,13 @@ class ProfileComponent extends React.Component {
 
   render() {
     return (
-      <span>Hello World</span>
+      <span>{User.name(this.currentUser())}</span>
     );
   }
 }
 
 ProfileComponent = component(ProfileComponent, {
-  state: ["state"],
   currentUser: ["state", "currentUser"]
-});
+}, User.getCurrentUser);
 
 export default ProfileComponent;
