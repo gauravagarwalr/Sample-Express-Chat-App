@@ -33,6 +33,10 @@ var User = {
     });
   },
 
+  getUserById: (id) => {
+    return appState.cursor(["state", "users", id]).deref();
+  },
+
   id: (user) => {
     return user.get("_id");
   },

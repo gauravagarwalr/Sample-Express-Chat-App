@@ -16,7 +16,7 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div className="layout-container">
+      <div className="row layout-container">
         <RouteHandler/>
       </div>
     );
