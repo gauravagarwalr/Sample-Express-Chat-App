@@ -12,19 +12,15 @@ class ProfileComponent extends React.Component {
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
-  currentUser() {
-    return this.props.currentUser;
-  }
-
   render() {
     return (
-      <span>{User.name(this.currentUser())}</span>
+      <span>{User.name(User.getCurrentUser())}</span>
     );
   }
 }
 
 ProfileComponent = component(ProfileComponent, {
   currentUser: ["state", "currentUser"]
-}, User.getCurrentUser);
+});
 
 export default ProfileComponent;

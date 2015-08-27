@@ -38,7 +38,7 @@ UserSchema
     this.salt = this.makeSalt();
     this.hashed_password = this.encryptPassword(password);
   })
-  .get(function() { return this._password });
+  .get(function() { return this._password; });
 
 /**
  * Validations
@@ -104,7 +104,7 @@ UserSchema.pre('save', function(next) {
   } else {
     next();
   }
-})
+});
 
 /**
  * Methods
@@ -180,7 +180,15 @@ UserSchema.statics = {
 
   load: function (options, cb) {
     this.findOne(options.criteria).exec(cb);
+  },
+
+  list: function (options, cb) {
+    var criteria = options.criteria || {};
+
+    this.find(criteria)
+      .sort({'createdAt': -1}) // sort by date
+      .exec(cb);
   }
-}
+};
 
 mongoose.model('User', UserSchema);

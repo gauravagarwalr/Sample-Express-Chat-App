@@ -23,6 +23,20 @@ exports.load = function (req, res, next, id) {
   });
 };
 
+exports.index = function(req, res) {
+  User.list({}, function(err, users) {
+    if(err) {
+      return res.render('500');
+    };
+
+    res.format({
+      'application/json': function () {
+        res.send({users: users});
+      }
+    });
+  });
+};
+
 /**
  * Create user
  */
