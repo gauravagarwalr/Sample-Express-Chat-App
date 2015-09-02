@@ -10,7 +10,12 @@ exports.index = function(req, res) {
   User.load({criteria: { _id: req.params.userId }}, function(err, user) {
     if (err) return res.render('500');
 
-    var since = req.params.since || moment().subtract(7, "days");
+    var since;
+    if(req.params.since) {
+      moment(req.params.since);
+    } else {
+      since = moment().subtract(7, "days");
+    }
 
     Message.load({$or: [{from: currentUser._id, to: user._id}, {to: currentUser._id, from: user._id}], createdAt: {$gte: since}}, function(err, messages) {
       if(err) return res.render('500');
