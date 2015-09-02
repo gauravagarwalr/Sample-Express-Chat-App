@@ -15,7 +15,7 @@ var csrf = require('csurf');
 var swig = require('swig');
 var expressLess = require('express-less');
 
-var mongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var winston = require('winston');
 var helpers = require('view-helpers');
@@ -37,14 +37,14 @@ module.exports = function (app, passport) {
 
   // Static files middleware
   app.use(express.static(config.root + '/public'));
-  app.use('/css', expressLess(config.root + '/public/css'));
+  app.use('/css', expressLess(config.root + '/public/css', { debug: true }));
 
   // Use winston on production
   var log;
   if (env !== 'development') {
     log = {
       stream: {
-        write: function (message, encoding) {
+        write: function (message) {
           winston.info(message);
         }
       }
@@ -81,7 +81,7 @@ module.exports = function (app, passport) {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.use(methodOverride(function (req, res) {
+  app.use(methodOverride(function (req) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it
       var method = req.body._method;
@@ -98,7 +98,7 @@ module.exports = function (app, passport) {
     proxy: true,
     resave: true,
     saveUninitialized: true,
-    store: new mongoStore({
+    store: new MongoStore({
       url: config.db,
       collection : 'sessions'
     })
