@@ -43,4 +43,5 @@ appState.on("swap", render);
 
 window.Immutable = Immutable;
 window.lodash = lodash;
+window.moment = moment;
 window.appState = appState;

@@ -8,6 +8,7 @@ var User = {
   fetchCurrentUser: () => {
     return request.get("/current_user").promise().then((response) => {
       appState.cursor(["state", "currentUser"]).update(() => Immutable.fromJS(response.body.user));
+      appState.cursor(["state", "csrfToken"]).update(() => response.body.csrfToken);
     });
   },
 

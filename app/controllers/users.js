@@ -110,7 +110,10 @@ exports.logout = function (req, res) {
 exports.currentUser = function (req, res) {
   res.format({
     'application/json': function () {
-      res.send({user: req.user});
+      res.send({
+        user: req.user,
+        csrfToken: req.csrfToken()
+      });
     }
   });
 };

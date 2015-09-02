@@ -11,13 +11,33 @@ exports.index = function(req, res) {
     if (err) return res.render('500');
 
     var since;
-    if(req.params.since) {
-      moment(req.params.since);
+    if(req.query.since) {
+      since = moment(req.query.since);
     } else {
       since = moment().subtract(7, "days");
     }
 
-    Message.load({$or: [{from: currentUser._id, to: user._id}, {to: currentUser._id, from: user._id}], createdAt: {$gte: since}}, function(err, messages) {
+    var messagesCriteria = {
+      $or: [
+        {
+          $and: [
+            {from: currentUser._id},
+            {to: user._id}
+          ]
+        },
+        {
+          $and: [
+            {to: currentUser._id},
+            {from: user._id}
+          ]
+        }
+      ],
+      createdAt: {
+        $gte: since.toDate()
+      }
+    };
+
+    Message.list(messagesCriteria, function(err, messages) {
       if(err) return res.render('500');
 
       res.format({

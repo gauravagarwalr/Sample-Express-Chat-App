@@ -10,11 +10,13 @@ var Message = {
   fetchMessages: (otherUser, since) => {
     var userId = User.id(otherUser);
 
-    var params = {
-      since: (since || moment()).toISOString()
-    };
+    var params = {};
 
-    return request.get(`/users/${userId}/messages`, params).promise().then((response) => {
+    if(since) {
+      params.since = since.toISOString();
+    }
+
+    return request.get(`/user/${userId}/messages`).query(params).promise().then((response) => {
       var fetchedMessages = lodash.reduce(response.body.messages, (memo, messageJson) => {
         return memo.set(String(messageJson._id), Immutable.fromJS(messageJson));
       }, Map());
@@ -25,16 +27,24 @@ var Message = {
 
   sendMessage: (otherUser, messageBody) => {
     var userId = User.id(otherUser);
+
     var params = {
+      _csrf: appState.cursor(["state", "csrfToken"]).deref(),
       body: messageBody
     };
 
-    return request.post(`/users/${userId}/messages`, params).promise();
+    return request.post(`/user/${userId}/messages`).send(params).promise();
   },
 
   getMessages: (otherUser) => {
     return otherUser.get("messages");
+  },
+
+  getTime: (message) => {
+    return moment(message.get("createdAt"));
   }
 };
 
 export default Message;
+
+window.Message = Message;
