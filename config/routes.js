@@ -4,6 +4,7 @@
 
 var home = require('home');
 var users = require('users');
+var messages = require('messages');
 
 /**
  * Expose
@@ -23,6 +24,11 @@ module.exports = function (app, passport) {
     }), users.session);
 
   app.get('/current_user', users.currentUser);
+
+  // Messages
+
+  app.get('/user/:userId/messages', messages.index);
+  app.post('/user/:userId/messages', messages.create);
 
   app.param('userId', users.load);
 
