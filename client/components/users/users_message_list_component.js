@@ -1,11 +1,10 @@
 import React from "react";
-import classNames from "classnames";
+import {Link, RouteHandler} from "react-router";
 
 import component from "../common/component";
 import shouldComponentUpdate from "../common/shouldupdate";
 
 import UserComponent from "./user_component";
-import MessagesPane from "../messages/messages_pane";
 
 import User from "../../stores/users_store";
 import Message from "../../stores/messages_store";
@@ -15,20 +14,17 @@ class UsersMessageListComponent extends React.Component {
     super();
 
     this.state = {
-      activeUserId: null,
       interval: null
     };
 
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
     var interval = setInterval(() => {
-      var otherUsers = User.getUsers();
+      var users = User.getUsers();
 
-      otherUsers.forEach((otherUser) => Message.fetchMessages(otherUser));
+      users.forEach((user) => Message.fetchMessages(user));
     }, 3000);
 
     this.setState({interval: interval});
@@ -38,33 +34,23 @@ class UsersMessageListComponent extends React.Component {
     clearInterval(this.state, interval);
   }
 
-  handleClick(otherUser) {
-    return () => {
-      this.setState({activeUserId: User.id(otherUser)});
-    };
-  }
-
   render() {
-    var otherUsers = User.getUsers();
-    var activeUserId = this.state.activeUserId;
+    var users = User.getUsers();
+
+    // var activeUserId = this.props.userId;
 
     return (
       <div className="users-messages row">
         <div className="user-message-view">
-          <MessagesPane
-            key={activeUserId}
-            user={User.getCurrentUser()}
-            otherUser={User.getUserById(activeUserId)}/>
+          <RouteHandler/>
         </div>
         <div className="user-list">
           {
-            otherUsers.map((otherUser, id) => {
+            users.map((user, id) => {
               return (
-                <UserComponent
-                  key={id}
-                  user={otherUser}
-                  className={classNames({selected: id === activeUserId})}
-                  onClick={this.handleClick(otherUser)}/>
+                <Link to="messages" params={{userId: id}} key={id}>
+                  <UserComponent user={user}/>
+                </Link>
               );
             }).toList()
           }
@@ -75,6 +61,8 @@ class UsersMessageListComponent extends React.Component {
 }
 
 UsersMessageListComponent = component(UsersMessageListComponent, {
+  userId: ["state", "route", "params", "userId"],
+
   users: ["state", "users"],
   currentUser: ["state", "currentUser"]
 });

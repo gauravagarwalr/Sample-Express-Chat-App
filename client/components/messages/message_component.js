@@ -1,4 +1,5 @@
 import React from "react";
+import lodash from "lodash";
 import classNames from "classnames";
 
 import shouldComponentUpdate from "../common/shouldupdate";
@@ -11,6 +12,17 @@ class MessageComponent extends React.Component {
     super();
 
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+  }
+
+  scrollIntoView() {
+    var node = React.findDOMNode(this);
+    if(node) {
+      if(lodash.isFunction(node.scrollIntoViewIfNeeded)) {
+        node.scrollIntoViewIfNeeded();
+      } else if(lodash.isFunction(node.scrollIntoView)) {
+        node.scrollIntoView();
+      }
+    }
   }
 
   render() {

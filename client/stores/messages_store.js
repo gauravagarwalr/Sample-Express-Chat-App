@@ -52,6 +52,10 @@ var Message = {
     return moment(message.get("createdAt"));
   },
 
+  id: (message) => {
+    return message.get("_id");
+  },
+
   body: (message) => {
     return message.get("body");
   },
