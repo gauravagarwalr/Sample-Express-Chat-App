@@ -23,10 +23,10 @@ class UserComponent extends React.Component {
 
     return (
       <div className={classNames("user-detail-row", "row", this.props.className)} onClick={this.props.onClick}>
-        <div className="col-md-3">
+        <div className="col-md-5">
           <PhotoComponent url={User.photoUrl(user)}/>
         </div>
-        <div className="col-md-9">
+        <div className="col-md-7 username">
           {User.username(user)}
         </div>
       </div>
