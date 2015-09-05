@@ -70,5 +70,3 @@ var Message = {
 };
 
 export default Message;
-
-window.Message = Message;
