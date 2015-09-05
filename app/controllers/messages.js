@@ -18,26 +18,32 @@ exports.index = function(req, res) {
     }
 
     var messagesCriteria = {
-      $or: [
+      $and: [
         {
-          $and: [
-            {from: currentUser._id},
-            {to: user._id}
+          $or: [
+            {
+              $and: [
+                {from: currentUser._id},
+                {to: user._id}
+              ]
+            },
+            {
+              $and: [
+                {to: currentUser._id},
+                {from: user._id}
+              ]
+            }
           ]
         },
         {
-          $and: [
-            {to: currentUser._id},
-            {from: user._id}
-          ]
+          createdAt: {
+            $gt: since.toDate()
+          }
         }
-      ],
-      createdAt: {
-        $gte: since.toDate()
-      }
+      ]
     };
 
-    Message.list(messagesCriteria, function(err, messages) {
+    Message.list({criteria: messagesCriteria}, function(err, messages) {
       if(err) return res.render('500');
 
       res.format({
