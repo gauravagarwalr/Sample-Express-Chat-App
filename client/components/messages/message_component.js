@@ -1,5 +1,4 @@
 import React from "react";
-import lodash from "lodash";
 
 import shouldComponentUpdate from "../common/shouldupdate";
 

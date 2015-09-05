@@ -1,4 +1,5 @@
 import React from "react";
+import lodash from "lodash";
 import VisibilitySensor from "react-visibility-sensor";
 
 import component from "../common/component";
