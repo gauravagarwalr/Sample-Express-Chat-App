@@ -28,9 +28,10 @@ var User = {
 
   getUsers: () => {
     var currentUser = User.getCurrentUser();
+    var currentUserId = User.id(currentUser);
 
     return appState.cursor(["state", "users"]).filterNot((user, userId) => {
-      return userId === User.id(currentUser);
+      return userId === currentUserId;
     });
   },
 

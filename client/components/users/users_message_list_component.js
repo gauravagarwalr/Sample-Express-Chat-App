@@ -34,13 +34,13 @@ class UsersMessageListComponent extends React.Component {
 
     return (
       <div className="users-messages row">
-        <div className="user-message-view col-md-8">
+        <div className="user-message-view">
           <MessagesPane
             key={activeUserId}
             user={User.getCurrentUser()}
             otherUser={User.getUserById(activeUserId)}/>
         </div>
-        <div className="user-list col-md-4">
+        <div className="user-list">
           {
             otherUsers.map((otherUser, id) => {
               return (
