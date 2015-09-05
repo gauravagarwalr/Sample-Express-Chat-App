@@ -15,17 +15,6 @@ class MessageComponent extends React.Component {
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
-  scrollIntoView() {
-    var node = React.findDOMNode(this);
-    if(node) {
-      if(lodash.isFunction(node.scrollIntoViewIfNeeded)) {
-        node.scrollIntoViewIfNeeded();
-      } else if(lodash.isFunction(node.scrollIntoView)) {
-        node.scrollIntoView();
-      }
-    }
-  }
-
   renderMessage() {
     var message = this.props.message;
 

@@ -1,4 +1,5 @@
 import React from "react";
+import VisibilitySensor from "react-visibility-sensor";
 
 import component from "../common/component";
 import shouldComponentUpdate from "../common/shouldupdate";
@@ -12,30 +13,38 @@ class MessagesPane extends React.Component {
   constructor() {
     super();
 
+    this.state = {
+      autoScroll: true
+    };
+
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+
+    this.toggleAutoScroll = this.toggleAutoScroll.bind(this);
   }
 
   componentWillMount() {
-    this.scrollToLastMessage();
+    this.scrollToEnd();
   }
 
   componentDidUpdate() {
-    this.scrollToLastMessage();
+    this.scrollToEnd();
   }
 
-  scrollToLastMessage() {
-    var user = this.props.user;
+  toggleAutoScroll(value) {
+    this.setState({autoScroll: value});
+  }
 
-    if(user && !user.isEmpty()) {
-      var messages = Message.getMessages(this.props.user);
+  scrollToEnd() {
+    var messageListBottomNode = this.refs.messageListBottom;
 
-      if(messages && !messages.isEmpty()) {
-        var lastMessage = messages.sortBy(Message.getTime).reverse().first();
-        var lastMessageRef = `message-${Message.id(lastMessage)}`;
-        var lastMessageComponent = this.refs[lastMessageRef];
+    if(messageListBottomNode && this.state.autoScroll) {
+      var node = React.findDOMNode(messageListBottomNode);
 
-        if(lastMessageComponent) {
-          lastMessageComponent.scrollIntoView();
+      if(node) {
+        if(lodash.isFunction(node.scrollIntoViewIfNeeded)) {
+          node.scrollIntoViewIfNeeded();
+        } else if(lodash.isFunction(node.scrollIntoView)) {
+          node.scrollIntoView();
         }
       }
     }
@@ -51,12 +60,12 @@ class MessagesPane extends React.Component {
         <div className="message-list">
           {
             messages.sortBy(Message.getTime).map((message, messageId) => {
-              return <MessageComponent
-                ref={`message-${messageId}`}
-                key={messageId}
-                message={message}/>;
+              return <MessageComponent key={messageId} message={message}/>;
             }).toList()
           }
+          <div className="row" ref="messageListBottom" style={{height: "1px"}}>
+            <VisibilitySensor onChange={this.toggleAutoScroll} partialVisibility={true}/>
+          </div>
         </div>
       );
     } else {
