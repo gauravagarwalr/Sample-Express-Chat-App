@@ -69,9 +69,70 @@
           transform: translate(-50%, -50%);
 
           height: 95%;
-          width: 95%;
+          width: 90%;
 
           overflow-y: scroll;
+
+          .message {
+            margin: 20px;
+            padding: 10px 5px;
+
+            .message-content {
+              border-radius: 5px;
+              border: 1px solid #aaa;
+
+              position: relative;
+
+              .message-body, .message-details {
+                display: inline-block;
+              }
+
+              .message-body {
+                padding: 10px 5px;
+              }
+
+              .message-details {
+                position: absolute;
+                bottom: -15px;
+                right: 20px;
+
+                font-size: 10px;
+                color: #888;
+              }
+            }
+
+            .user-details {
+              .photo {
+                display: block;
+
+                margin: 5px auto;
+
+                height: 50px;
+                width: 50px;
+
+                border-radius: 50%;
+              }
+              .username {
+                text-align: center;
+                display: block;
+              }
+            }
+
+            &.message-alpha {
+              .message-content {
+                border-color: #6495ed;
+                box-shadow: 0 0 3px rgba(100, 149, 237, 0.5);
+
+              }
+            }
+
+            &.message-beta {
+              .message-content {
+                border-color: #48d1cc;
+                box-shadow: 0 0 3px rgba(72, 209, 204, 0.5);
+              }
+            }
+          }
         }
       }
 
