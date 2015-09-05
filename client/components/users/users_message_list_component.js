@@ -8,18 +8,34 @@ import UserComponent from "./user_component";
 import MessagesPane from "../messages/messages_pane";
 
 import User from "../../stores/users_store";
+import Message from "../../stores/messages_store";
 
 class UsersMessageListComponent extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      activeUserId: null
+      activeUserId: null,
+      interval: null
     };
 
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillMount() {
+    var interval = setInterval(() => {
+      var otherUsers = User.getUsers();
+
+      otherUsers.forEach((otherUser) => Message.fetchMessages(otherUser));
+    }, 3000);
+
+    this.setState({interval: interval});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state, interval);
   }
 
   handleClick(otherUser) {

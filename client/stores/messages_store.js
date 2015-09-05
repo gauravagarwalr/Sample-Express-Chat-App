@@ -7,13 +7,15 @@ import appState from "./app_state";
 import User from "./users_store";
 
 var Message = {
-  fetchMessages: (otherUser, since) => {
+  fetchMessages: (otherUser) => {
     var userId = User.id(otherUser);
 
     var params = {};
 
-    if(since) {
-      params.since = since.toISOString();
+    var lastMessage = Message.getLastMessage(otherUser);
+
+    if(lastMessage && !lastMessage.isEmpty()) {
+      params.since = Message.getTime(lastMessage).toISOString();
     }
 
     return request.get(`/user/${userId}/messages`).query(params).promise().then((response) => {
@@ -36,8 +38,12 @@ var Message = {
     return request.post(`/user/${userId}/messages`).send(params).promise();
   },
 
+  getLastMessage: (otherUser) => {
+    return Message.getMessages(otherUser).sortBy(Message.getTime).reverse().first() || Map();
+  },
+
   getMessages: (otherUser) => {
-    return otherUser.get("messages");
+    return otherUser.get("messages") || Map();
   },
 
   getTime: (message) => {
