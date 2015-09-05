@@ -39,6 +39,13 @@ var User = {
     return appState.cursor(["state", "users", id]).deref();
   },
 
+  isCurrentUser: (user) => {
+    var currentUserId = User.id(User.getCurrentUser());
+    var userId = User.id(user);
+
+    return currentUserId === userId;
+  },
+
   id: (user) => {
     return user.get("_id");
   },

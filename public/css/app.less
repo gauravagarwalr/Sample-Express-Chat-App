@@ -11,59 +11,109 @@
 
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 
   .layout-header {
     margin-bottom: 0px;
   }
 
   .layout-content {
-    flex-grow: 100;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
 
     .chat-app-container {
+      flex: 1;
+
       display: flex;
       flex-direction: column;
-
-      flex-grow: 1;
     }
   }
 }
 
 .users-messages {
+  flex: 1;
+
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
 
   .user-list {
-    flex-grow: 1;
+    flex: 1;
 
     border-left: 1px solid #ccc;
     overflow-y: scroll;
   }
 
   .user-message-view {
+    flex: 4;
+
     display: flex;
     flex-direction: column;
 
-    flex-grow: 4;
-
     .message-pane {
+      flex: 1;
+
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
 
-      .message-list {
-        flex-grow: 5;
+      .message-list-container {
+        flex: 5;
+
+        position: relative;
+
+        .message-list {
+          position: absolute;
+
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          height: 95%;
+          width: 95%;
+
+          overflow-y: scroll;
+        }
       }
 
       .message-box {
+        flex: 1;
+
         display: flex;
         flex-direction: row;
 
-        flex-grow: 1;
+        .message-input {
+          flex: 5;
+
+          position: relative;
+
+          textarea {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            height: 80%;
+            width: 95%;
+          }
+        }
+
+        .message-actions {
+          flex: 1;
+
+          position: relative;
+
+          .send-action {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            height: 60%;
+            width: 80%;
+          }
+        }
       }
     }
   }

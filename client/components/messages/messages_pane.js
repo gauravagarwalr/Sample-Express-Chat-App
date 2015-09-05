@@ -2,9 +2,9 @@ import React from "react";
 
 import shouldComponentUpdate from "../common/shouldupdate";
 
+import MessageComponent from "./message_component";
 import MessageBox from "./message_box";
 
-// import User from "../../stores/users_store";
 import Message from "../../stores/messages_store";
 
 class MessagesPane extends React.Component {
@@ -15,16 +15,23 @@ class MessagesPane extends React.Component {
   }
 
   renderMessages() {
-    // var user = this.props.user;
     var otherUser = this.props.otherUser;
 
     var messages = Message.getMessages(otherUser);
 
     if(messages && !messages.isEmpty()) {
-      return false;
+      return (
+        <div className="message-list">
+          {
+            messages.sortBy(Message.getTime).map((message, messageId) => {
+              return <MessageComponent key={messageId} message={message}/>;
+            }).toList()
+          }
+        </div>
+      );
     } else {
       return (
-        <span>No messages to show</span>
+        <span className="no-results">No messages to show</span>
       );
     }
   }
@@ -43,7 +50,7 @@ class MessagesPane extends React.Component {
     } else {
       return (
         <div className="row message-pane">
-          <div className="row message-list">
+          <div className="row message-list-container">
             {this.renderMessages()}
           </div>
           <MessageBox otherUser={otherUser}/>

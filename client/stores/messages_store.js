@@ -35,7 +35,9 @@ var Message = {
       body: messageBody
     };
 
-    return request.post(`/user/${userId}/messages`).send(params).promise();
+    return request.post(`/user/${userId}/messages`).send(params).promise().then(() => {
+      return Message.fetchMessages(otherUser);
+    });
   },
 
   getLastMessage: (otherUser) => {
@@ -48,6 +50,18 @@ var Message = {
 
   getTime: (message) => {
     return moment(message.get("createdAt"));
+  },
+
+  body: (message) => {
+    return message.get("body");
+  },
+
+  fromId: (message) => {
+    return message.get("from");
+  },
+
+  fromUser: (message) => {
+    return User.getUserById(Message.fromId(message));
   }
 };
 
