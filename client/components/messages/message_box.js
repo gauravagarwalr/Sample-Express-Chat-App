@@ -16,6 +16,15 @@ class MessageBox extends React.Component {
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
     this.sendMessage = this.sendMessage.bind(this);
+    this.handleTextArea = this.handleTextArea.bind(this);
+  }
+
+  handleTextArea(jsEvent) {
+    if(jsEvent.keyCode === 13) {
+      if (!jsEvent.shiftKey){
+        this.sendMessage();
+      }
+    };
   }
 
   sendMessage() {
@@ -53,7 +62,8 @@ class MessageBox extends React.Component {
             type="textarea"
             placeholder="Type Here..."
             disabled={this.state.sending}
-            standalone={true}/>
+            standalone={true}
+            onKeyDown={this.handleTextArea}/>
         </div>
         <div className="message-actions">
           <Button {...buttonOptions.props}>
