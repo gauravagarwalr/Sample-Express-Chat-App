@@ -20,6 +20,7 @@ class MessagesPane extends React.Component {
 
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
+    this.scrollToEnd = this.scrollToEnd.bind(this);
     this.toggleAutoScroll = this.toggleAutoScroll.bind(this);
   }
 
@@ -35,17 +36,22 @@ class MessagesPane extends React.Component {
     this.setState({autoScroll: value});
   }
 
-  scrollToEnd() {
+  scrollToEnd(force) {
     var messageListBottomNode = this.refs.messageListBottom;
 
-    if(messageListBottomNode && this.state.autoScroll) {
-      var node = React.findDOMNode(messageListBottomNode);
+    if(this.state.autoScroll || force) {
+      if(lodash.isUndefined(messageListBottomNode)) {
+        setTimeout(() => this.scrollToEnd(true), 50);
+        return false;
+      } else {
+        var node = React.findDOMNode(messageListBottomNode);
 
-      if(node) {
-        if(lodash.isFunction(node.scrollIntoViewIfNeeded)) {
-          node.scrollIntoViewIfNeeded();
-        } else if(lodash.isFunction(node.scrollIntoView)) {
-          node.scrollIntoView();
+        if(node) {
+          if(lodash.isFunction(node.scrollIntoViewIfNeeded)) {
+            node.scrollIntoViewIfNeeded();
+          } else if(lodash.isFunction(node.scrollIntoView)) {
+            node.scrollIntoView();
+          }
         }
       }
     }
