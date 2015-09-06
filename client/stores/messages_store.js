@@ -7,12 +7,12 @@ import appState from "./app_state";
 import User from "./users_store";
 
 var Message = {
-  fetchMessages: (otherUser) => {
-    var userId = User.id(otherUser);
+  fetchMessages: (user) => {
+    var userId = User.id(user);
 
     var params = {};
 
-    var lastMessage = Message.getLastMessage(otherUser);
+    var lastMessage = Message.getLastMessage(user);
 
     if(lastMessage && !lastMessage.isEmpty()) {
       params.since = Message.getTime(lastMessage).toISOString();
@@ -27,8 +27,8 @@ var Message = {
     });
   },
 
-  sendMessage: (otherUser, messageBody) => {
-    var userId = User.id(otherUser);
+  sendMessage: (user, messageBody) => {
+    var userId = User.id(user);
 
     var params = {
       _csrf: appState.cursor(["state", "csrfToken"]).deref(),
@@ -36,16 +36,16 @@ var Message = {
     };
 
     return request.post(`/user/${userId}/messages`).send(params).promise().then(() => {
-      return Message.fetchMessages(otherUser);
+      return Message.fetchMessages(user);
     });
   },
 
-  getLastMessage: (otherUser) => {
-    return Message.getMessages(otherUser).sortBy(Message.getTime).reverse().first() || Map();
+  getLastMessage: (user) => {
+    return Message.getMessages(user).sortBy(Message.getTime).reverse().first() || Map();
   },
 
-  getMessages: (otherUser) => {
-    return otherUser.get("messages") || Map();
+  getMessages: (user) => {
+    return user.get("messages") || Map();
   },
 
   getTime: (message) => {
