@@ -34,6 +34,7 @@ class MessageBox extends React.Component {
     return Message.sendMessage(this.props.user, messageBody).then(() => {
       this.refs.messageInput.getInputDOMNode().value = "";
       this.setState({sending: false});
+      this.refs.messageInput.getInputDOMNode().focus();
     });
   }
 
