@@ -29,6 +29,7 @@
     "cookie-session": "1.2.0",
     "csurf": "1.8.3",
     "express": "4.13.1",
+    "express-cluster": "0.0.3",
     "express-less": "0.0.8",
     "express-session": "1.11.3",
     "font-awesome": "^4.4.0",
