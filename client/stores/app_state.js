@@ -1,5 +1,5 @@
-const immstruct = require("immstruct");
 import {Map} from "immutable";
+import immstruct from "immstruct";
 
 var appState;
 

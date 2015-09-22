@@ -1,8 +1,6 @@
-//initialize
-// JS imports
+import React from "react";
 import moment from "moment";
 import lodash from "lodash";
-const React = require("react");
 import Router from "react-router";
 import Immutable from "immutable";
 
@@ -29,19 +27,18 @@ var render = () => {
 
 appState.on("swap", render);
 
-(() => {
-  Router.run(routes, (Handler, store) => {
-    let routeParams = Immutable.fromJS(store);
+Router.run(routes, (Handler, store) => {
+  let routeParams = Immutable.fromJS(store);
 
-    AppHandler = Handler;
+  AppHandler = Handler;
 
-    if(!Immutable.is(appState.cursor(["state", "route"]).deref(), routeParams)){
-      appState.cursor(["state", "route"]).update(() => routeParams);
-    }
-  });
-})();
+  if(!Immutable.is(appState.cursor(["state", "route"]).deref(), routeParams)){
+    appState.cursor(["state", "route"]).update(() => routeParams);
+  }
+});
 
-window.Immutable = Immutable;
+window.appState = appState;
+
 window.lodash = lodash;
 window.moment = moment;
-window.appState = appState;
+window.Immutable = Immutable;

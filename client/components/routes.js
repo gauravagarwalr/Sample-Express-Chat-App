@@ -6,14 +6,14 @@ import Layout from "./layout";
 import ProfileComponent from "./users/profile_component";
 
 import SelectUserComponent from "./users/select_user_component";
-import UsersMessageListComponent from "./users/users_message_list_component";
+import UsersListComponent from "./users/users_list_component";
 
 import MessagesPane from "./messages/messages_pane";
 
 const routes = (
   <Route name="layout" path="/" handler={Layout}>
 
-    <Route name="users" handler={UsersMessageListComponent}>
+    <Route name="users" handler={UsersListComponent}>
       <DefaultRoute handler={SelectUserComponent}/>
 
       <Route name="messages" path=":userId/messages" handler={MessagesPane}/>

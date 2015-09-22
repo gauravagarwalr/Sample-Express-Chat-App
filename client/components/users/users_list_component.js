@@ -9,7 +9,7 @@ import UserComponent from "./user_component";
 import User from "../../stores/users_store";
 import Message from "../../stores/messages_store";
 
-class UsersMessageListComponent extends React.Component {
+class UsersListComponent extends React.Component {
   constructor() {
     super();
 
@@ -37,8 +37,6 @@ class UsersMessageListComponent extends React.Component {
   render() {
     var users = User.getUsers();
 
-    // var activeUserId = this.props.userId;
-
     return (
       <div className="users-messages row">
         <div className="user-message-view">
@@ -60,11 +58,11 @@ class UsersMessageListComponent extends React.Component {
   }
 }
 
-UsersMessageListComponent = component(UsersMessageListComponent, {
+UsersListComponent = component(UsersListComponent, {
   userId: ["state", "route", "params", "userId"],
 
   users: ["state", "users"],
   currentUser: ["state", "currentUser"]
 });
 
-export default UsersMessageListComponent;
+export default UsersListComponent;
