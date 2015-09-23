@@ -107,6 +107,7 @@ class MessagesPane extends React.Component {
 MessagesPane = component(MessagesPane, {
   userId: ["state", "route", "params", "userId"],
   user: ["state", "users", "computed.userId"],
+  messages: ["state", "users", "computed.userId", "messages"],
   currentUser: ["state", "currentUser"]
 });
 

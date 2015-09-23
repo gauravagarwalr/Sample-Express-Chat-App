@@ -4,7 +4,7 @@ import lodash from "lodash";
 import appState from "../../stores/app_state";
 import LoaderComponent from "./loader_component";
 
-export default function component(ParentComponent, paths, preloadFn) {
+export default function component(ChildComponent, paths, preloadFn) {
   return React.createClass({
     displayName: "component",
 
@@ -20,7 +20,7 @@ export default function component(ParentComponent, paths, preloadFn) {
     },
 
     markError: function(error) {
-      console.error("Error rendering ", ParentComponent, ". While preloading encountered ", error);
+      console.error("Error rendering ", ChildComponent, ". While preloading encountered ", error);
 
       this.setState({hasError: true});
     },
@@ -62,7 +62,7 @@ export default function component(ParentComponent, paths, preloadFn) {
             return memo;
           }), props);
 
-          return <ParentComponent {...this.props} {...props}/>;
+          return <ChildComponent {...this.props} {...props}/>;
         } else {
           return false;
         }

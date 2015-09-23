@@ -64,6 +64,7 @@ class MessageBox extends React.Component {
             placeholder="Type Here..."
             disabled={this.state.sending}
             standalone={true}
+            autoFocus={true}
             onKeyDown={this.handleTextArea}/>
         </div>
         <div className="message-actions">

@@ -22,7 +22,8 @@ moment.locale("en", {
 var AppHandler = null;
 
 var render = () => {
-  React.render(React.createElement(AppHandler), document.getElementById("root"));
+  React.render(React.createElement(AppHandler),
+    document.getElementById("root"));
 };
 
 appState.on("swap", render);
